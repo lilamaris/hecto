@@ -57,16 +57,16 @@ impl Editor {
 
         match key_code {
             KeyCode::Up => {
-                y = y.saturating_sub(1);
+                y = y.saturating_sub(2);
             }
             KeyCode::Down => {
-                y = min(height.saturating_sub(1), y.saturating_add(1));
+                y = min(height.saturating_sub(1), y.saturating_add(2));
             }
             KeyCode::Left => {
-                x = x.saturating_sub(1);
+                x = x.saturating_sub(11);
             }
             KeyCode::Right => {
-                x = min(width.saturating_sub(1), x.saturating_add(1));
+                x = min(width.saturating_sub(1), x.saturating_add(11));
             }
             KeyCode::PageUp => {
                 y = 0;
@@ -133,12 +133,11 @@ impl Editor {
         Terminal::move_caret_to(Position::default())?;
         if self.should_quit {
             Terminal::clear_screen()?;
-            Terminal::print("Goodbye.\r\n")?;
         } else {
             self.view.render()?;
             Terminal::move_caret_to(Position {
-                col: self.location.x,
-                row: self.location.y,
+                col: self.location.x + 1,
+                row: self.location.y + 1,
             })?;
         }
 
